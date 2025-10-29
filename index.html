@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pastry Shop — Starter Template</title>
+  <meta name="description" content="Editable single-file pastry shop template" />
+  <style>
+    :root{
+      --bg:#fff8f3;
+      --card:#fff;
+      --accent:#d97706; /* amber-600 */
+      --muted:#6b7280;
+      --radius:16px;
+      --glass: rgba(255,255,255,0.6);
+      --maxw:1100px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#fff);color:#111}
+    .container{max-width:var(--maxw);margin:32px auto;padding:0 20px}
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#ffd9b3,#ffefdd);display:flex;align-items:center;justify-content:center;font-weight:700}
+    nav a{margin-left:18px;text-decoration:none;color:var(--muted);font-weight:600}
+
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin:28px 0}
+    .hero h1{font-size:34px;margin:0}
+    .hero p{color:var(--muted);margin-top:10px}
+    .cta{margin-top:18px}
+    .btn{background:var(--accent);color:white;padding:12px 18px;border-radius:12px;border:0;font-weight:700;cursor:pointer}
+
+    .card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:0 8px 30px rgba(0,0,0,0.06)}
+
+    /* product grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .product{padding:12px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.8),var(--glass));display:flex;flex-direction:column}
+    .product img{width:100%;height:160px;object-fit:cover;border-radius:10px}
+    .product h3{margin:8px 0 6px}
+    .price{font-weight:800}
+    .muted{color:var(--muted);font-size:14px}
+
+    /* floating cart */
+    .cart-btn{position:fixed;right:28px;bottom:28px;background:var(--accent);color:white;padding:12px 16px;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.2);cursor:pointer}
+
+    footer{margin:40px 0;color:var(--muted);text-align:center}
+
+    /* responsive */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr}
+      .hero img{order:-1}
+    }
+
+    /* simple modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;padding:20px}
+    .modal{width:100%;max-width:700px}
+    .close-x{background:none;border:0;font-size:18px;cursor:pointer}
+
+    /* small form */
+    input,select,textarea{padding:10px;border-radius:10px;border:1px solid #eee;width:100%}
+    label{display:block;margin:8px 0 4px;font-weight:600}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">PM</div>
+        <div>
+          <div style="font-weight:800">Pastry Merchant</div>
+          <div style="font-size:13px;color:var(--muted)">Handmade pastries & treats</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h1>Fresh pastries baked daily — taste the love</h1>
+        <p>Starter site you can edit in a single file. Add your own photos, prices, and product descriptions below. This template includes a simple cart, product modal and contact form.</p>
+        <div class="cta"><button class="btn" onclick="scrollToProducts()">Shop pastries</button></div>
+        <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+          <div class="card" style="padding:10px">Open hours<br><strong>Mon–Sat · 8am–4pm</strong></div>
+          <div class="card" style="padding:10px">Pickup & delivery<br><strong>Local delivery available</strong></div>
+        </div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <img src="https://images.unsplash.com/photo-1542826438-8b8d5f1f16f8?w=1200&q=80&auto=format&fit=crop" alt="pastries" style="width:100%;height:100%;object-fit:cover;display:block">
+      </div>
+    </section>
+
+    <section id="products">
+      <h2>Our pastries</h2>
+      <p class="muted">Edit the product list in the JavaScript section at the top of the file to add/remove items.</p>
+      <div id="productsGrid" class="grid" style="margin-top:12px"></div>
+    </section>
+
+    <section id="about" style="margin-top:28px">
+      <div class="card">
+        <h3>About our bakery</h3>
+        <p class="muted">A short paragraph you can replace: we bake small-batch pastries using local ingredients and traditional recipes. Perfect for events, gifts, and everyday treats.</p>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:18px">
+      <div class="card">
+        <h3>Contact & orders</h3>
+        <form id="contactForm" onsubmit="handleContact(event)">
+          <label for="name">Name</label>
+          <input id="name" required />
+          <label for="email">Email</label>
+          <input id="email" type="email" required />
+          <label for="message">Message / Order details</label>
+          <textarea id="message" rows="4" required></textarea>
+          <div style="margin-top:10px"><button class="btn">Send</button></div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> Pastry Merchant — Built with this starter template</div>
+    </footer>
+  </div>
+
+  <button class="cart-btn" id="openCartBtn">Cart (<span id="cartCount">0</span>)</button>
+
+  <!-- modal container -->
+  <div id="modalRoot" style="display:none"></div>
+
+  <script>
+  /*
+    === How to edit this file ===
+    - Open this file in VS Code. You can right-click -> Open with Live Server to preview (recommended).
+    - Edit the `products` array below to change items, prices and images.
+    - Replace placeholder images with your own uploads (add relative paths or absolute URLs).
+    - This file is intentionally dependency-free (vanilla JS) so it's easy to edit.
+  */
+
+  // Product data: edit this array to add/remove products.
+  const products = [
+    {
+      id: 'cinnamon-roll',
+      title: 'Cinnamon Roll',
+      price: 4.5,
+      desc: 'Fluffy roll with brown sugar filling and vanilla glaze.',
+      img: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=1200&q=80&auto=format&fit=crop'
+    },
+    {
+      id: 'chocolate-tart',
+      title: 'Chocolate Tart',
+      price: 6.5,
+      desc: 'Rich dark chocolate tart with a flaky crust.',
+      img: 'https://images.unsplash.com/photo-1604908177522-44b8d9f7a0c4?w=1200&q=80&auto=format&fit=crop'
+    },
+    {
+      id: 'lemon-slice',
+      title: 'Lemon Slice',
+      price: 3.75,
+      desc: 'Bright lemon curd, tender shortbread base.',
+      img: 'https://images.unsplash.com/photo-1525755662778-989d0524087e?w=1200&q=80&auto=format&fit=crop'
+    }
+  ];
+
+  // Simple in-memory cart
+  const cart = {};
+
+  function formatMoney(n){return '$' + n.toFixed(2)}
+
+  function renderProducts(){
+    const grid = document.getElementById('productsGrid');
+    grid.innerHTML = '';
+    products.forEach(p => {
+      const el = document.createElement('div'); el.className = 'product card';
+      el.innerHTML = `
+        <img src="${p.img}" alt="${p.title}">
+        <h3>${p.title}</h3>
+        <div class="muted">${p.desc}</div>
+        <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between">
+          <div class="price">${formatMoney(p.price)}</div>
+          <div>
+            <button class="btn" onclick="openProductModal('${p.id}')">View</button>
+            <button style="margin-left:8px" onclick="addToCart('${p.id}')">Add</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(el);
+    });
+  }
+
+  function openProductModal(id){
+    const p = products.find(x=>x.id===id);
+    const root = document.getElementById('modalRoot');
+    root.style.display = 'block';
+    root.innerHTML = `
+      <div class="modal-backdrop" onclick="closeModal(event)">
+        <div class="modal card" onclick="event.stopPropagation()">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3>${p.title} — ${formatMoney(p.price)}</h3>
+            <button class="close-x" onclick="closeModal()">✕</button>
+          </div>
+          <img src="${p.img}" style="width:100%;height:320px;object-fit:cover;border-radius:10px;margin-top:10px">
+          <p class="muted" style="margin-top:10px">${p.desc}</p>
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <input id="qty-${p.id}" type="number" min="1" value="1" style="width:100px">
+            <button class="btn" onclick="addToCart('${p.id}', document.getElementById('qty-${p.id}').value); closeModal();">Add to cart</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function closeModal(e){
+    const root = document.getElementById('modalRoot');
+    root.style.display = 'none';
+    root.innerHTML = '';
+  }
+
+  function addToCart(id, qty=1){
+    qty = Number(qty) || 1;
+    if(!cart[id]) cart[id]=0;
+    cart[id]+=qty;
+    updateCartCount();
+    flash(`${qty} added`);
+  }
+
+  function updateCartCount(){
+    const count = Object.values(cart).reduce((s,v)=>s+v,0);
+    document.getElementById('cartCount').innerText = count;
+  }
+
+  function flash(text){
+    const el = document.createElement('div');
+    el.textContent = text; el.style.position='fixed';el.style.left='20px';el.style.bottom='28px';el.style.background='black';el.style.color='white';el.style.padding='8px 12px';el.style.borderRadius='8px';el.style.opacity='0.95';
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),1400);
+  }
+
+  function openCart(){
+    const root = document.getElementById('modalRoot');
+    root.style.display = 'block';
+    const lines = Object.keys(cart).map(id=>{
+      const p = products.find(x=>x.id===id);
+      const qty = cart[id];
+      return `<div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:8px\">`+
+              `<div><strong>${p.title}</strong><div class=\"muted\">${formatMoney(p.price)} × ${qty}</div></div>`+
+              `<div><button onclick=\\"changeQty('\\${id}\\',-1)\\">−</button> <button onclick=\\"changeQty('\\${id}\\',1)\\">+</button></div>`+
+              `</div>`;
+    }).join('') || '<div class="muted">Cart is empty</div>';
+    const subtotal = Object.keys(cart).reduce((s,id)=>{
+      const p = products.find(x=>x.id===id); return s + (p.price * cart[id]||0);
+    },0);
+    root.innerHTML = `
+      <div class="modal-backdrop" onclick="closeModal(event)">
+        <div class="modal card" onclick="event.stopPropagation()">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3>Your cart</h3>
+            <button class="close-x" onclick="closeModal()">✕</button>
+          </div>
+          <div style="margin-top:12px">${lines}</div>
+          <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+            <div class="muted">Subtotal</div>
+            <div style="font-weight:800">${formatMoney(subtotal)}</div>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:10px">
+            <button class="btn" onclick="checkout()">Checkout</button>
+            <button onclick="clearCart()">Clear</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function changeQty(id, delta){
+    if(!cart[id]) return; cart[id]+=delta; if(cart[id]<=0) delete cart[id]; updateCartCount(); openCart();
+  }
+
+  function clearCart(){
+    for(const k in cart) delete cart[k]; updateCartCount(); openCart();
+  }
+
+  function checkout(){
+    // This is a stub. Replace with your payment integration or order flow.
+    alert('Checkout stub — replace with Stripe/PayPal integration or an order form.');
+  }
+
+  function handleContact(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    // Example: show a success message. Replace with real email/webhook if desired.
+    alert('Thanks '+name+" — we received your message. (This is a demo.)");
+    e.target.reset();
+  }
+
+  function scrollToProducts(){ document.getElementById('products').scrollIntoView({behavior:'smooth'}) }
+
+  // wire up cart button
+  document.getElementById('openCartBtn').addEventListener('click', openCart);
+
+  // init
+  document.getElementById('year').innerText = new Date().getFullYear();
+  renderProducts();
+  </script>
+</body>
+</html>
