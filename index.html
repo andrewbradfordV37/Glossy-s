@@ -4,126 +4,199 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Glossy's</title>
-  <meta name=Glossy's content="Bradfords Pastry business />
+  <meta name="description" content="Bradfords Pastry business" />
+  <!-- bubbly font -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#fff8f3;
-      --card:#fff;
-      --accent:#d97706; /* amber-600 */
-      --muted:#6b7280;
-      --radius:16px;
+      --bg:#eaf4ff; /* very light blue */
+      --card:#ffffff;
+      --accent:#0b63d6; /* blue */
+      --accent-dark:#064a9c;
+      --muted:#4b5870;
+      --radius:14px;
       --glass: rgba(255,255,255,0.6);
       --maxw:1100px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --highlight: linear-gradient(90deg, rgba(11,99,214,0.12), rgba(6,74,156,0.08));
+      font-family: "Baloo 2", Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
     *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,var(--bg),#fff);color:#111}
-    .container{max-width:var(--maxw);margin:32px auto;padding:0 20px}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#dff0ff);color:#07203a}
+    .container{max-width:var(--maxw);margin:28px auto;padding:0 20px}
 
     header{display:flex;align-items:center;justify-content:space-between;gap:16px}
     .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#ffd9b3,#ffefdd);display:flex;align-items:center;justify-content:center;font-weight:700}
-    nav a{margin-left:18px;text-decoration:none;color:var(--muted);font-weight:600}
+    .logo{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#d6ecff,#ddf0ff);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--accent-dark);font-size:18px;box-shadow:0 6px 18px rgba(6,74,156,0.06)}
+    nav a{margin-left:18px;text-decoration:none;color:var(--muted);font-weight:700}
 
-    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin:28px 0}
-    .hero h1{font-size:34px;margin:0}
-    .hero p{color:var(--muted);margin-top:10px}
-    .cta{margin-top:18px}
-    .btn{background:var(--accent);color:white;padding:12px 18px;border-radius:12px;border:0;font-weight:700;cursor:pointer}
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:center;margin:20px 0}
+    .hero h1{font-size:36px;margin:0;color:var(--accent-dark)}
+    .hero p{color:var(--muted);margin-top:8px}
+    .cta{margin-top:16px}
+    .btn{background:var(--accent);color:white;padding:10px 16px;border-radius:12px;border:0;font-weight:800;cursor:pointer;font-family:inherit}
 
-    .card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:0 8px 30px rgba(0,0,0,0.06)}
+    .card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:0 8px 30px rgba(6,74,156,0.06)}
 
     /* product grid */
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-    .product{padding:12px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.8),var(--glass));display:flex;flex-direction:column}
-    .product img{width:100%;height:160px;object-fit:cover;border-radius:10px}
-    .product h3{margin:8px 0 6px}
-    .price{font-weight:800}
-    .muted{color:var(--muted);font-size:14px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .product{padding:14px;border-radius:12px;background:var(--card);display:flex;flex-direction:column;min-height:150px;border:1px solid rgba(6,74,156,0.06)}
+    .product h3{margin:6px 0 6px;font-weight:800;padding:6px;border-radius:8px;display:inline-block;background:var(--highlight);color:var(--accent-dark)}
+    .product .muted{color:var(--muted);font-size:14px}
+    .price{font-weight:900;color:var(--accent-dark);margin-top:8px}
+
+    .product-actions{margin-top:auto;display:flex;gap:8px;align-items:center}
 
     /* floating cart */
-    .cart-btn{position:fixed;right:28px;bottom:28px;background:var(--accent);color:white;padding:12px 16px;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.2);cursor:pointer}
+    .cart-btn{position:fixed;right:28px;bottom:28px;background:var(--accent);color:white;padding:12px 16px;border-radius:16px;box-shadow:0 8px 24px rgba(6,74,156,0.2);cursor:pointer;font-weight:800}
 
-    footer{margin:40px 0;color:var(--muted);text-align:center}
+    footer{margin:30px 0;color:var(--muted);text-align:center}
 
     /* responsive */
     @media (max-width:880px){
       .hero{grid-template-columns:1fr}
-      .hero img{order:-1}
     }
 
     /* simple modal */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;padding:20px}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;padding:20px;z-index:60}
     .modal{width:100%;max-width:700px}
     .close-x{background:none;border:0;font-size:18px;cursor:pointer}
 
     /* small form */
-    input,select,textarea{padding:10px;border-radius:10px;border:1px solid #eee;width:100%}
-    label{display:block;margin:8px 0 4px;font-weight:600}
+    input,select,textarea{padding:10px;border-radius:10px;border:1px solid #e6eef9;width:100%;font-family:inherit}
+    label{display:block;margin:8px 0 6px;font-weight:700}
+    .contact-top{display:flex;gap:12px;align-items:center;justify-content:space-between}
+    .phone-bubble{background:linear-gradient(90deg,#f0f8ff,#e6f3ff);padding:10px 14px;border-radius:12px;border:1px solid rgba(11,99,214,0.08);font-weight:800;color:var(--accent-dark)}
+    .small-muted{font-size:13px;color:var(--muted)}
+    .reviews-list{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+    .review-item{padding:10px;border-radius:10px;background:linear-gradient(180deg,#fff,#f7fbff);border:1px solid rgba(6,74,156,0.04)}
+    a.cashlink{display:inline-block;margin-top:8px;padding:8px 10px;border-radius:10px;background:linear-gradient(90deg,#0b63d6,#064a9c);color:#fff;text-decoration:none;font-weight:800}
+
+    /* highlight pastry names */
+    .item-name{font-weight:900;display:inline-block;padding:6px 10px;border-radius:10px;background:var(--highlight);color:var(--accent-dark)}
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <div class="brand">
-        <div class="logo">PM</div>
+        <div class="logo">G</div>
         <div>
-          <div style="font-weight:800">Pastry Merchant</div>
+          <div style="font-weight:900;font-size:18px">Glossy's</div>
           <div style="font-size:13px;color:var(--muted)">Handmade pastries & treats</div>
         </div>
       </div>
       <nav>
         <a href="#products">Products</a>
         <a href="#about">About</a>
+        <a href="#orders">Orders</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
 
     <section class="hero">
       <div>
-        <h1>Fresh pastries baked to your preferance</h1>
-        <p>Starter site you can edit in a single file. Add your own photos, prices, and product descriptions below. This template includes a simple cart, product modal and contact form.</p>
-        <div class="cta"><button class="btn" onclick="scrollToProducts()">Shop pastries</button></div>
-        <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
-          <div class="card" style="padding:10px">Open hours<br><strong>Mon–Sat · 8am–4pm</strong></div>
-          <div class="card" style="padding:10px">Pickup & delivery<br><strong>Local delivery available</strong></div>
-        </div>
+        <h1>Warm cinnamon rolls & cookies — pickup only</h1>
+        <p class="small-muted">Place your order below. All orders are pickup only (Alexander). Online payments via Cash App — link in the Orders section.</p>
+        <div class="cta"><button class="btn" onclick="scrollToProducts()">Order pastries</button></div>
       </div>
-      <div class="card" style="padding:0;overflow:hidden">
-        <img src="https://images.unsplash.com/photo-1542826438-8b8d5f1f16f8?w=1200&q=80&auto=format&fit=crop" alt="pastries" style="width:100%;height:100%;object-fit:cover;display:block">
+      <div class="card" style="padding:18px;">
+        <div style="font-weight:800;color:var(--accent-dark)">Location</div>
+        <div style="margin-top:6px" class="small-muted">Alexander</div>
+
+        <div style="margin-top:14px">
+          <div class="phone-bubble">(501)-519-9028</div>
+          <div style="margin-top:6px;font-size:13px;color:var(--muted)">text me for details.</div>
+        </div>
+
+        <div style="margin-top:14px">
+          <div style="font-weight:800">Pickup Only</div>
+          <div class="small-muted" style="margin-top:6px">No delivery — local pickup at Alexander.</div>
+        </div>
       </div>
     </section>
 
     <section id="products">
       <h2>Our pastries</h2>
-      <p class="muted">Edit the product list in the JavaScript section at the top of the file to add/remove items.</p>
+      <p class="muted">Click "View" for details or add directly to cart. Names are highlighted and bold.</p>
       <div id="productsGrid" class="grid" style="margin-top:12px"></div>
     </section>
 
-    <section id="about" style="margin-top:28px">
+    <section id="about" style="margin-top:22px">
       <div class="card">
         <h3>About our bakery</h3>
         <p class="muted">The goal of our community is to bring smiles to any and everyone with an affordable warm & toast pastry that brings a smile to the faces of those who are in need or could use a bite of joy. Our pastry's mainly revolve around cookies and cinnamon rolls; however we incorporate our own style and unique flavors.</p>
       </div>
     </section>
 
+    <section id="orders" style="margin-top:18px">
+      <div class="card">
+        <h3>Online orders (Pickup only)</h3>
+        <p class="muted">To complete payment online or donate, use Cash App. After payment, text or call to confirm pickup time: <strong>(501)-519-9028</strong>.</p>
+        <div style="margin-top:8px">
+          <a class="cashlink" href="https://cash.app/$Bigdrew266" target="_blank" rel="noopener noreferrer">Online payments / donations • Cash App</a>
+        </div>
+
+        <div style="margin-top:14px">
+          <h4 style="margin:0 0 8px 0">Place an order</h4>
+          <form id="orderForm" onsubmit="placeOrder(event)">
+            <label for="orderName">Name</label>
+            <input id="orderName" required />
+            <label for="orderItems">Order details (items & qty)</label>
+            <textarea id="orderItems" rows="3" required placeholder="e.g. 2 Cinnamon rolls, 3 Chocolate chip cookies"></textarea>
+            <div style="display:flex;gap:8px;margin-top:10px">
+              <button class="btn" type="submit">Submit order (note: payment via Cash App)</button>
+              <button type="button" onclick="openCashApp()" style="padding:10px;border-radius:10px;border:1px solid rgba(6,74,156,0.08);background:transparent;font-weight:800;cursor:pointer">Open Cash App</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" style="margin-top:18px">
+      <div class="card">
+        <h3>Reviews</h3>
+        <p class="muted">Leave a short review — reviews are saved locally in your browser (for demo).</p>
+        <form id="reviewForm" onsubmit="submitReview(event)">
+          <label for="reviewer">Name</label>
+          <input id="reviewer" />
+          <label for="reviewText">Review</label>
+          <textarea id="reviewText" rows="2" required></textarea>
+          <div style="margin-top:8px"><button class="btn">Post review</button></div>
+        </form>
+
+        <div id="reviewsList" class="reviews-list"></div>
+      </div>
+    </section>
+
     <section id="contact" style="margin-top:18px">
       <div class="card">
         <h3>Contact & orders</h3>
-        <form id="contactForm" onsubmit="handleContact(event)">
-          <label for="name">Name</label>
-          <input id="name" required />
-          <label for="email">Email</label>
-          <input id="email" type="email" required />
-          <label for="message">Message / Order details</label>
-          <textarea id="message" rows="4" required></textarea>
-          <div style="margin-top:10px"><button class="btn">Send</button></div>
-        </form>
+        <div class="contact-top">
+          <div>
+            <div style="font-weight:800">Call / Text</div>
+            <div style="margin-top:6px" class="small-muted">(501)-519-9028 — text me for details.</div>
+            <div style="margin-top:8px;font-weight:700">Alexander</div>
+          </div>
+          <div style="min-width:220px">
+            <div style="font-weight:700">Online payments</div>
+            <a class="cashlink" href="https://cash.app/$Bigdrew266" target="_blank" rel="noopener noreferrer">Cash App • $Bigdrew266</a>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <form id="contactForm" onsubmit="handleContact(event)">
+            <label for="cname">Name</label>
+            <input id="cname" required />
+            <label for="cmessage">Message / Order details</label>
+            <textarea id="cmessage" rows="3" required></textarea>
+            <div style="margin-top:10px"><button class="btn">Send</button></div>
+          </form>
+        </div>
       </div>
     </section>
 
     <footer>
-      <div>© <span id="year"></span> Pastry Merchant — Built with this starter template</div>
+      <div>© <span id="year"></span> Glossy's</div>
     </footer>
   </div>
 
@@ -133,43 +206,68 @@
   <div id="modalRoot" style="display:none"></div>
 
   <script>
-  /*
-    === How to edit this file ===
-    - Open this file in VS Code. You can right-click -> Open with Live Server to preview (recommended).
-    - Edit the `products` array below to change items, prices and images.
-    - Replace placeholder images with your own uploads (add relative paths or absolute URLs).
-    - This file is intentionally dependency-free (vanilla JS) so it's easy to edit.
-  */
-
-  // Product data: edit this array to add/remove products.
+  // === Data updated to match user's list & pricing ===
   const products = [
     {
-      id: 'cinnamon-roll',
-      title: 'Cinnamon Roll',
-      price: 4.5,
-      desc: 'Fluffy roll with brown sugar filling and vanilla glaze.',
-      img: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=1200&q=80&auto=format&fit=crop'
+      id: 'cinnamon-classic',
+      title: "Cinnamon roll classic",
+      price: 6.00,
+      desc: "Classical cinnamon roll with cream cheese frosting drizzle."
     },
     {
-      id: 'chocolate-tart',
-      title: 'Chocolate Tart',
-      price: 6.5,
-      desc: 'Rich dark chocolate tart with a flaky crust.',
-      img: 'https://images.unsplash.com/photo-1604908177522-44b8d9f7a0c4?w=1200&q=80&auto=format&fit=crop'
+      id: 'strawberry-cinnamon',
+      title: "Strawberry cinnamon roll",
+      price: 12.00,
+      desc: "Strawberries infused in the dough with signature berry pomade and cream cheese frosting."
     },
     {
-      id: 'lemon-slice',
-      title: 'Lemon Slice',
-      price: 3.75,
-      desc: 'Bright lemon curd, tender shortbread base.',
-      img: 'https://images.unsplash.com/photo-1525755662778-989d0524087e?w=1200&q=80&auto=format&fit=crop'
+      id: 'blueberry-cinnamon',
+      title: "Blueberry cinnamon roll",
+      price: 12.00,
+      desc: "Caramelized blueberries infused in dough with signature berry pomade and cream cheese frosting."
+    },
+    {
+      id: 'peanut-cinnamon',
+      title: "Peanut butter cinnamon roll",
+      price: 12.00,
+      desc: "Classical cinnamon roll with heavy whipped peanut butter frosting."
+    },
+    {
+      id: 'applepie-cinnamon',
+      title: "Apple pie cinnamon roll",
+      price: 12.00,
+      desc: "Apple-infused dough with cream cheese frosting drizzle."
+    },
+    {
+      id: 'choc-chip-cookie',
+      title: "Chocolate chip cookie",
+      price: 3.00,
+      desc: "Classic bakery chocolate chip cookie."
+    },
+    {
+      id: 'sugar-cookie',
+      title: "Sugar cookie",
+      price: 4.00,
+      desc: "Soft, buttery sugar cookie."
+    },
+    {
+      id: 'pb-cookie',
+      title: "Peanut butter cookie",
+      price: 4.00,
+      desc: "Rich peanut butter cookie."
+    },
+    {
+      id: 'smores-cookie',
+      title: "S'more's cookies",
+      price: 6.00,
+      desc: "Cookie with marshmallow, chocolate and graham flavors — bakery-style s'more."
     }
   ];
 
-  // Simple in-memory cart
+  // simple in-memory cart
   const cart = {};
 
-  function formatMoney(n){return '$' + n.toFixed(2)}
+  function formatMoney(n){ return '$' + n.toFixed(2) }
 
   function renderProducts(){
     const grid = document.getElementById('productsGrid');
@@ -177,15 +275,14 @@
     products.forEach(p => {
       const el = document.createElement('div'); el.className = 'product card';
       el.innerHTML = `
-        <img src="${p.img}" alt="${p.title}">
-        <h3>${p.title}</h3>
-        <div class="muted">${p.desc}</div>
-        <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <h3 class="item-name">${escapeHtml(p.title)}</h3>
+          <div class="muted">${escapeHtml(p.desc)}</div>
           <div class="price">${formatMoney(p.price)}</div>
-          <div>
-            <button class="btn" onclick="openProductModal('${p.id}')">View</button>
-            <button style="margin-left:8px" onclick="addToCart('${p.id}')">Add</button>
-          </div>
+        </div>
+        <div class="product-actions">
+          <button class="btn" onclick="openProductModal('${p.id}')">View</button>
+          <button style="padding:8px 10px;border-radius:10px;border:1px solid rgba(6,74,156,0.08);background:transparent;font-weight:800;cursor:pointer" onclick="addToCart('${p.id}')">Add</button>
         </div>
       `;
       grid.appendChild(el);
@@ -200,13 +297,13 @@
       <div class="modal-backdrop" onclick="closeModal(event)">
         <div class="modal card" onclick="event.stopPropagation()">
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <h3>${p.title} — ${formatMoney(p.price)}</h3>
+            <h3>${escapeHtml(p.title)} — ${formatMoney(p.price)}</h3>
             <button class="close-x" onclick="closeModal()">✕</button>
           </div>
-          <img src="${p.img}" style="width:100%;height:320px;object-fit:cover;border-radius:10px;margin-top:10px">
-          <p class="muted" style="margin-top:10px">${p.desc}</p>
-          <div style="margin-top:12px;display:flex;gap:8px">
-            <input id="qty-${p.id}" type="number" min="1" value="1" style="width:100px">
+          <p class="muted" style="margin-top:10px">${escapeHtml(p.desc)}</p>
+          <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+            <label style="margin:0">Qty</label>
+            <input id="qty-${p.id}" type="number" min="1" value="1" style="width:90px">
             <button class="btn" onclick="addToCart('${p.id}', document.getElementById('qty-${p.id}').value); closeModal();">Add to cart</button>
           </div>
         </div>
@@ -235,7 +332,7 @@
 
   function flash(text){
     const el = document.createElement('div');
-    el.textContent = text; el.style.position='fixed';el.style.left='20px';el.style.bottom='28px';el.style.background='black';el.style.color='white';el.style.padding='8px 12px';el.style.borderRadius='8px';el.style.opacity='0.95';
+    el.textContent = text; el.style.position='fixed';el.style.left='20px';el.style.bottom='28px';el.style.background='rgba(7,32,58,0.95)';el.style.color='white';el.style.padding='8px 12px';el.style.borderRadius='8px';el.style.opacity='0.95';el.style.zIndex='80';
     document.body.appendChild(el);
     setTimeout(()=>el.remove(),1400);
   }
@@ -246,13 +343,13 @@
     const lines = Object.keys(cart).map(id=>{
       const p = products.find(x=>x.id===id);
       const qty = cart[id];
-      return `<div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:8px\">`+
-              `<div><strong>${p.title}</strong><div class=\"muted\">${formatMoney(p.price)} × ${qty}</div></div>`+
-              `<div><button onclick=\\"changeQty('\\${id}\\',-1)\\">−</button> <button onclick=\\"changeQty('\\${id}\\',1)\\">+</button></div>`+
+      return `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">`+
+              `<div><strong>${escapeHtml(p.title)}</strong><div class="muted">${formatMoney(p.price)} × ${qty}</div></div>`+
+              `<div><button onclick="changeQty('${id}',-1)">−</button> <button onclick="changeQty('${id}',1)">+</button></div>`+
               `</div>`;
     }).join('') || '<div class="muted">Cart is empty</div>';
     const subtotal = Object.keys(cart).reduce((s,id)=>{
-      const p = products.find(x=>x.id===id); return s + (p.price * cart[id]||0);
+      const p = products.find(x=>x.id===id); return s + ((p?.price || 0) * cart[id]);
     },0);
     root.innerHTML = `
       <div class="modal-backdrop" onclick="closeModal(event)">
@@ -267,9 +364,10 @@
             <div style="font-weight:800">${formatMoney(subtotal)}</div>
           </div>
           <div style="margin-top:12px;display:flex;gap:10px">
-            <button class="btn" onclick="checkout()">Checkout</button>
+            <button class="btn" onclick="checkout()">Checkout / Pay (Cash App)</button>
             <button onclick="clearCart()">Clear</button>
           </div>
+          <div style="margin-top:10px" class="small-muted">Pickup only — Alexander. After paying, text (501)-519-9028 to confirm pickup time.</div>
         </div>
       </div>
     `;
@@ -284,21 +382,75 @@
   }
 
   function checkout(){
-    // This is a stub. Replace with your payment integration or order flow.
-    alert('Checkout stub — replace with Stripe/PayPal integration or an order form.');
+    const subtotal = Object.keys(cart).reduce((s,id)=>{
+      const p = products.find(x=>x.id===id); return s + ((p?.price || 0) * cart[id]);
+    },0);
+    if(subtotal === 0){
+      alert('Your cart is empty.');
+      return;
+    }
+    // Open Cash App link in a new tab and show instructions
+    const cashUrl = 'https://cash.app/$Bigdrew266';
+    const msg = `Subtotal ${formatMoney(subtotal)} — pickup only (Alexander).\n\nYou'll be taken to Cash App in a new tab. After payment, text or call (501)-519-9028 to confirm pickup time.`;
+    if(confirm(msg + "\n\nOpen Cash App now?")){
+      window.open(cashUrl, '_blank', 'noopener');
+    }
   }
 
   function handleContact(e){
     e.preventDefault();
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-    // Example: show a success message. Replace with real email/webhook if desired.
-    alert('Thanks '+name+" — we received your message. (This is a demo.)");
+    const name = document.getElementById('cname').value.trim();
+    const message = document.getElementById('cmessage').value.trim();
+    if(!name || !message){ alert('Please fill the form.'); return; }
+    alert('Thanks '+name+" — we received your message. (This is a demo.) Please text (501)-519-9028 for quick replies.");
     e.target.reset();
   }
 
+  function placeOrder(e){
+    e.preventDefault();
+    const name = document.getElementById('orderName').value.trim();
+    const details = document.getElementById('orderItems').value.trim();
+    if(!name || !details){ alert('Please fill name and order details.'); return; }
+    alert('Order submitted — please complete payment using the Cash App link. Then text (501)-519-9028 to confirm pickup time.');
+    e.target.reset();
+  }
+
+  // Reviews: simple local storage
+  function loadReviews(){
+    try{
+      const raw = localStorage.getItem('glossy_reviews');
+      return raw ? JSON.parse(raw) : [];
+    }catch(e){ return []; }
+  }
+  function saveReviews(arr){ localStorage.setItem('glossy_reviews', JSON.stringify(arr)); }
+
+  function renderReviews(){
+    const list = document.getElementById('reviewsList');
+    const reviews = loadReviews();
+    if(!reviews.length){ list.innerHTML = '<div class="muted">No reviews yet — be the first to leave one!</div>'; return; }
+    list.innerHTML = reviews.map(r=>`<div class="review-item"><strong>${escapeHtml(r.name||'Anonymous')}</strong><div class="muted" style="margin-top:6px">${escapeHtml(r.text)}</div></div>`).join('');
+  }
+
+  function submitReview(e){
+    e.preventDefault();
+    const name = document.getElementById('reviewer').value.trim() || 'Anonymous';
+    const text = document.getElementById('reviewText').value.trim();
+    if(!text) return;
+    const reviews = loadReviews();
+    reviews.unshift({name, text, date: new Date().toISOString()});
+    saveReviews(reviews);
+    renderReviews();
+    e.target.reset();
+  }
+
+  // small helpers
   function scrollToProducts(){ document.getElementById('products').scrollIntoView({behavior:'smooth'}) }
+  function openCashApp(){ window.open('https://cash.app/$Bigdrew266', '_blank', 'noopener') }
+
+  // escape helper to avoid accidental HTML insertion
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
 
   // wire up cart button
   document.getElementById('openCartBtn').addEventListener('click', openCart);
@@ -306,7 +458,8 @@
   // init
   document.getElementById('year').innerText = new Date().getFullYear();
   renderProducts();
+  renderReviews();
+  updateCartCount();
   </script>
 </body>
 </html>
-
